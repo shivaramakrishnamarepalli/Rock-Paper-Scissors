@@ -69,10 +69,11 @@ body{
     flex: 1 1 auto;
     background-color: rgb(228, 206, 80);
 }
-.textbox{
+.textBox{
     display: flex;
+    flex-direction: column;
     flex: 1 1 auto;
-    height: 100px;
+    min-height: 100px;
     margin-left: 200px;
     margin-right: 200px;
     margin-top: 50px;
@@ -82,7 +83,6 @@ body{
     justify-content: space-around;
     align-items: center;
 }
-
 .footer{
     background-color: #1F2937; 
     font-size: 30px;
@@ -92,4 +92,10 @@ body{
     padding: 20px;
     display: flex;
     flex: 1;
+}
+.display{
+    font-size: 31px;
+    font-weight: bold;
+    color: green;
+    padding: 20px;
 }

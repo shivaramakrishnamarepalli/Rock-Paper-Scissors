@@ -1,3 +1,24 @@
+let myScore=0;
+let compScore=0;
+
+let getOpt=0;
+let arr=["Rock","Paper","Scissor"];
+const optRock = document.querySelector('#rock');
+optRock.addEventListener('click',()=>{
+    getOpt=0;
+    checkScore();
+});
+const optPaper = document.querySelector('#paper');
+optPaper.addEventListener('click',()=>{
+    getOpt=1;
+    checkScore();
+});
+const optScissor = document.querySelector('#scissor');
+optScissor.addEventListener('click',()=>{
+    getOpt=2;
+    checkScore();
+});
+
 function getComputerChoice(){
     let val=Math.floor(Math.random()*3);
     let str="null";
@@ -13,16 +34,61 @@ function getComputerChoice(){
     return str;
 }
 
-let myScore=0;
-let compScore=0;
+const textBox= document.querySelector('.textBox');
+const matter = document.createElement('div');
+matter.textContent='Choose a button to start game!';
+const score = document.createElement('div');
+matter.classList.add('display');
+score.classList.add('display');
+textBox.appendChild(score);
+textBox.appendChild(matter);
 
-function oneRound()
-{
-    console.log("Scores->",myScore,":",compScore);
-    const userChoice= prompt("enter rock/paper/scissor","");
+function checkScore(){
+    let res=playRound();
+    console.log(res);
+    matter.textContent=res;
+    score.textContent="Scores->"+myScore+":"+compScore;
+    if(myScore==5)
+    {
+        reset('You');
+    }
+    if(compScore==5)
+    {
+        reset('computer');
+    }
+}
+
+
+
+function reset(wnr){
+    const winner = document.createElement('div');
+    winner.textContent=wnr+" won the match!";
+    winner.style.color='white';
+    winner.classList.add('display');
+    textBox.appendChild(winner);
+    const resetGame = document.createElement('button');
+    resetGame.textContent="Reset Game ?"
+    resetGame.classList.add('btn');
+    resetGame.classList.add('reset');
+    resetGame.style.backgroundColor='green';
+    textBox.appendChild(resetGame);
+    myScore=0;
+    compScore=0;
+
+    const optreset = document.querySelector('.reset');
+    optreset.addEventListener('click',()=>{
+        winner.remove();
+        resetGame.remove();
+        score.textContent='';
+        matter.textContent='Choose a button to start game!';
+        textBox.appendChild()
+    });
+}
+
+function playRound()
+{   
     const str=getComputerChoice();
-    let result;
-    if(userChoice.toLowerCase()=="rock")
+    if(getOpt==0)
     {
         if(str=="paper")
         {
@@ -38,7 +104,7 @@ function oneRound()
             return "You won! rock beats scissor";
         }
     }
-    else if(userChoice.toLowerCase()=="paper")
+    else if(getOpt==1)
     {
         if(str=="scissor")
         {
@@ -54,7 +120,7 @@ function oneRound()
             return "You won! paper beats rock";
         }
     }
-    else if(userChoice.toLowerCase()=="scissor")
+    else if(getOpt==2)
     {
         if(str=="rock")
         {
@@ -70,31 +136,4 @@ function oneRound()
             return "You won! Scissor beats paper";
         }
     }
-    /*else {
-        return "Please enter correctly!";
-        i--;
-    }*/
 }
-
-function game()
-{
-    for(i=0;i<5;i++)
-    {
-        let res=oneRound();
-        console.log(res);
-    }
-    if(myScore>compScore)
-    {
-        console.log("You Won");
-    }
-    else if(compScore>myScore)
-    {
-        console.log("computer won");
-    }
-    else 
-    {
-        console.log("It's a tie game");
-    }
-}
-
-game();
