@@ -1,23 +1,26 @@
+let flag=0;
 let myScore=0;
 let compScore=0;
 
-let getOpt=0;
+let getOpt='';
 let arr=["Rock","Paper","Scissor"];
-const optRock = document.querySelector('#rock');
-optRock.addEventListener('click',()=>{
-    getOpt=0;
+const opt = document.querySelectorAll('.btn');
+opt.forEach(btn => btn.addEventListener('click',()=>{
+    getOpt=event.target.id;
     checkScore();
-});
-const optPaper = document.querySelector('#paper');
-optPaper.addEventListener('click',()=>{
-    getOpt=1;
-    checkScore();
-});
-const optScissor = document.querySelector('#scissor');
-optScissor.addEventListener('click',()=>{
-    getOpt=2;
-    checkScore();
-});
+    event.target.classList.add('trans');
+    event.target.classList.remove('onpoint');
+}));
+
+
+const tend = document.querySelectorAll('button');
+tend.forEach(button => button.addEventListener('transitionend',removeTransition) );
+
+function removeTransition(e)
+{
+    if(e.propertyName!='transform') return;
+    this.classList.remove('trans');
+}
 
 function getComputerChoice(){
     let val=Math.floor(Math.random()*3);
@@ -45,20 +48,19 @@ textBox.appendChild(matter);
 
 function checkScore(){
     let res=playRound();
-    console.log(res);
     matter.textContent=res;
     score.textContent="Scores->"+myScore+":"+compScore;
     if(myScore==5)
     {
         reset('You');
+        flag=1
     }
     if(compScore==5)
     {
         reset('computer');
+        flag=1
     }
 }
-
-
 
 function reset(wnr){
     const winner = document.createElement('div');
@@ -74,21 +76,25 @@ function reset(wnr){
     textBox.appendChild(resetGame);
     myScore=0;
     compScore=0;
+    score.textContent='';
+    matter.textContent='';
 
     const optreset = document.querySelector('.reset');
+    optreset.classList.add('trans');
     optreset.addEventListener('click',()=>{
         winner.remove();
         resetGame.remove();
         score.textContent='';
         matter.textContent='Choose a button to start game!';
-        textBox.appendChild()
+        myScore=0;
+        compScore=0;
     });
 }
 
 function playRound()
 {   
     const str=getComputerChoice();
-    if(getOpt==0)
+    if(getOpt=='rock')
     {
         if(str=="paper")
         {
@@ -104,7 +110,7 @@ function playRound()
             return "You won! rock beats scissor";
         }
     }
-    else if(getOpt==1)
+    else if(getOpt=='paper')
     {
         if(str=="scissor")
         {
@@ -120,7 +126,7 @@ function playRound()
             return "You won! paper beats rock";
         }
     }
-    else if(getOpt==2)
+    else if(getOpt=='scissor')
     {
         if(str=="rock")
         {
@@ -137,3 +143,8 @@ function playRound()
         }
     }
 }
+
+const point = document.querySelectorAll('button');
+point.forEach(button => button.addEventListener('mouseover',(event)=>{   event.target.classList.add('onpoint');}) );
+point.forEach(button => button.addEventListener('mouseout',(event)=>{    event.target.classList.remove('onpoint');
+}) );
