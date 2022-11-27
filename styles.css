@@ -41,8 +41,8 @@ body{
     padding: 10px;
 }
 
-
 .btn{
+    transition: all 0.07s;
     display: flex;
     flex: 0 1 auto;
     height: 250px;
@@ -53,6 +53,8 @@ body{
     justify-content: center;
     outline: none;
     box-decoration-break: unset;
+    border-color: black;
+    position: relative;
 }
 
 .options{
@@ -83,6 +85,7 @@ body{
     justify-content: space-around;
     align-items: center;
 }
+
 .footer{
     background-color: #1F2937; 
     font-size: 30px;
@@ -98,4 +101,20 @@ body{
     font-weight: bold;
     color: green;
     padding: 20px;
+    padding-top: 0px;
+}
+
+.trans{
+    transform: scale(1.2);
+    border-color: yellowgreen;
+    box-shadow: 0 0 10px blue;
+}
+
+.onpoint{
+    transform: scale(1.1);
+    color: white;
+    font-size: 111%;
+    font-weight: bold;
+    box-shadow: 0 0 10px white;
+    background-color: #1F2937;
 }
